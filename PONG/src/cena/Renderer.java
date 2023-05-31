@@ -11,7 +11,8 @@ import com.jogamp.opengl.util.FPSAnimator;
 import input.KeyBoard;
 
 public class Renderer {
-    private static GLWindow window = null;
+
+    static GLWindow window = null;
     public static int screenWidth = 1920;
     public static int screenHeight = 1080;
 
@@ -23,9 +24,9 @@ public class Renderer {
         window = GLWindow.create(caps);
         window.setFullscreen(true); // Define a janela em tela cheia
         window.setSize(screenWidth, screenHeight);
-
+        
         Cena cena = new Cena();
-
+        
         window.addGLEventListener(cena); // adiciona a Cena à Janela
         // Habilita o teclado: cena
         window.addKeyListener(new KeyBoard(cena));

@@ -15,7 +15,6 @@ public class Cena implements GLEventListener {
     private boolean moverEsquerda;
     private boolean moverDireita;
     private GLU glu;
-
     private float posXBolinha;
     private float velocidadeBolinhaX;
     private float velocidadeBolinhaY;
@@ -23,7 +22,9 @@ public class Cena implements GLEventListener {
 
     private int vidas;
     private int pontuacao;
-    private boolean pausado;
+    private int fase;
+    public boolean pausado;
+    private boolean iniciar;
 
     public Cena() {
         posXRetangulo = 0.0f;
@@ -40,7 +41,9 @@ public class Cena implements GLEventListener {
 
         vidas = 5;
         pontuacao = 0;
+        fase = 1;
         pausado = false;
+        iniciar = false;
     }
 
     public float getPosXRetangulo() {
@@ -71,6 +74,10 @@ public class Cena implements GLEventListener {
         this.pausado = pausado;
     }
 
+    public void setIniciar(boolean iniciar) {
+        this.iniciar = iniciar;
+    }
+
     public void atualizar() {
         if (!pausado) {
             if (moverEsquerda) {
@@ -82,8 +89,8 @@ public class Cena implements GLEventListener {
             } else if (moverDireita) {
                 posXRetangulo += velocidadeMovimento;
                 // Verifica limite direito
-                if (posXRetangulo > 0.6f) {
-                    posXRetangulo = 0.6f;
+                if (posXRetangulo > 0.8f) {
+                    posXRetangulo = 0.8f;
                 }
             }
         }
@@ -127,10 +134,11 @@ public class Cena implements GLEventListener {
 
             // Verificar colisão com o retângulo
             if (posYBolinha - raio <= -0.7f && posXBolinha >= posXRetangulo - 0.2f && posXBolinha <= posXRetangulo + 0.2f) {
-                pontuacao += 10;
+                pontuacao += 20;
                 velocidadeBolinhaY = velocidadeBolinha;
                 if (pontuacao >= 200) {
                     // Iniciar a segunda fase
+                    fase = 2;
                     velocidadeBolinha = 0.02f;
                 }
             }
@@ -170,6 +178,11 @@ public class Cena implements GLEventListener {
 
         // Exibir informações do jogo (vidas e pontuação)
         gl.glColor3f(1.0f, 1.0f, 1.0f);
+        gl.glColor3f(1.0f, 1.0f, 1.0f);
+
+        //Exibe regras
+        String regras = "Regras do jogo: ";
+        desenharTexto(gl, 0.9f, 0.8f, regras);
 
         // Exibir vidas
         String vidasStr = "Vidas: " + vidas;
@@ -178,6 +191,10 @@ public class Cena implements GLEventListener {
         // Exibir pontuação
         String pontuacaoStr = "Pontuação: " + pontuacao;
         desenharTexto(gl, -0.9f, 0.7f, pontuacaoStr);
+
+        //Exibir Fase
+        String faseStr = "Fase: " + fase;
+        desenharTexto(gl, -0.9f, 0.6f, faseStr);
 
         // Verificar atualizações
         atualizar();
@@ -192,7 +209,7 @@ public class Cena implements GLEventListener {
         GLUT glut = new GLUT();
 
         for (char c : texto.toCharArray()) {
-            glut.glutBitmapCharacter(GLUT.BITMAP_HELVETICA_12, c);
+            glut.glutBitmapCharacter(GLUT.BITMAP_TIMES_ROMAN_24, c);
         }
         gl.glDisable(GL2.GL_COLOR_MATERIAL);
     }
