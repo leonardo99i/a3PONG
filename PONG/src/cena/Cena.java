@@ -19,30 +19,51 @@ public class Cena implements GLEventListener{
         xMax = yMax = zMax = 1;        
     }
 
-    @Override
-    public void display(GLAutoDrawable drawable) {  
-        //obtem o contexto Opengl
-        GL2 gl = drawable.getGL().getGL2();                
-        //define a cor da janela (R, G, G, alpha)
-        gl.glClearColor(0, 0, 0, 1);        
-        //limpa a janela com a cor especificada
-        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);       
-        gl.glLoadIdentity(); //lê a matriz identidade
-        
-        /*
-            desenho da cena        
-        *
-        */
-        
-        gl.glColor3f(1,1,1); //cor branca        
-              
-        //desenha um retangulo
-        gl.glBegin(GL2.GL_POINTS);
-            gl.glVertex2f(0, 0);            
-        gl.glEnd(); 
-        
-        gl.glFlush();      
+@Override
+public void display(GLAutoDrawable drawable) {
+    // obtem o contexto OpenGL
+    GL2 gl = drawable.getGL().getGL2();
+    // define a cor de fundo da janela (R, G, B, alpha)
+    gl.glClearColor(0, 0, 0, 1);
+    // limpa a janela com a cor especificada
+    gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+    gl.glLoadIdentity(); // lê a matriz identidade
+
+    /*
+        desenho da cena        
+    */
+
+    gl.glColor3f(0, 0, 1); // cor azul
+
+    // desenha um retângulo fino e baixo
+    gl.glBegin(GL2.GL_QUADS);
+    gl.glVertex2f(-0.5f, -1.0f); // canto inferior esquerdo
+    gl.glVertex2f(0.5f, -1.0f); // canto inferior direito
+    gl.glVertex2f(0.5f, -0.9f); // canto superior direito
+    gl.glVertex2f(-0.5f, -0.9f); // canto superior esquerdo
+    gl.glEnd();
+
+    gl.glColor3f(0, 0, 1); // cor azul
+
+    // desenha uma bolinha
+    gl.glTranslatef(0.0f, -0.45f, 0.0f); // translada para a posição central na parte inferior
+    int numSegments = 100; // número de segmentos do círculo
+    float radius = 0.1f; // raio do círculo
+    float angle;
+
+    gl.glBegin(GL2.GL_TRIANGLE_FAN);
+    gl.glVertex2f(0.0f, 0.0f); // centro do círculo
+    for (int i = 0; i <= numSegments; i++) {
+        angle = (float) (2.0f * Math.PI * i / numSegments);
+        gl.glVertex2f((float) Math.cos(angle) * radius, (float) Math.sin(angle) * radius);
     }
+    gl.glEnd();
+
+    gl.glFlush();
+}
+
+
+
 
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {    
