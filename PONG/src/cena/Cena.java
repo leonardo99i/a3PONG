@@ -182,8 +182,8 @@ public class Cena implements GLEventListener {
 
         //Exibe regras
         String regras = "Regras do jogo: ";
-        String regra1 = "Seta <- para esquerda";
-        String regra2 = "Seta -> para esquerda";
+        String regra1 = "Seta <- para Esquerda";
+        String regra2 = "Seta -> para Direita";
         String regra3 = "S para Pausar";
         String regra4 = "Esc para sair";
         desenharTexto(gl, 0.6f, 0.8f, regras);
