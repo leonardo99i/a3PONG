@@ -20,7 +20,7 @@ public class KeyBoard implements KeyListener {
                 cena.setMoverEsquerda(true);
             case KeyEvent.VK_RIGHT -> // Tecla direita
                 cena.setMoverDireita(true);
-            case KeyEvent.VK_S -> // Tecla S para pausar/retornar o jogo
+            case KeyEvent.VK_S -> // Tecla S para pausar/retornar o Jogo
                 cena.setPausado(!cena.pausado);
             case KeyEvent.VK_ESCAPE -> //Tecla Espaço para Iniciar o jogo
                 cena.setIniciar(false);
